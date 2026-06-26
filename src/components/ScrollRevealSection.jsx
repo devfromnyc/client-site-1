@@ -43,21 +43,21 @@ export default function ScrollRevealSection() {
     return () => window.removeEventListener('scroll', handleScroll)
   }, [])
 
-  const headerFade = linearSegment(progress, 0.34, 0.52)
-  const headerVisible = progress < 0.52
+  const headerFade = linearSegment(progress, 0.18, 0.3)
+  const headerVisible = progress < 0.3
 
-  const paragraphVisible = progress >= 0.5
+  const paragraphVisible = progress >= 0.28
   const paragraphOpacity = paragraphVisible
-    ? clamp(easeInCubic(linearSegment(progress, 0.5, 0.6)) * 0.85 + 0.15, 0, 1)
+    ? clamp(easeInCubic(linearSegment(progress, 0.28, 0.36)) * 0.85 + 0.15, 0, 1)
     : 0
 
   function headerLineStyle(index) {
-    const stagger = index * 0.04
-    const sharpIn = easeInCubic(linearSegment(progress, 0 + stagger, 0.26 + stagger))
-    const sharpOut = easeInCubic(linearSegment(progress, 0.34 + stagger, 0.52 + stagger))
-    const sharpness = progress < 0.34 ? sharpIn : Math.max(0, 1 - sharpOut)
-    const opacity = progress < 0.34
-      ? clamp(easeInCubic(linearSegment(progress, 0 + stagger, 0.14 + stagger)) * 0.9 + 0.1, 0, 1)
+    const stagger = index * 0.02
+    const sharpIn = easeInCubic(linearSegment(progress, 0 + stagger, 0.12 + stagger))
+    const sharpOut = easeInCubic(linearSegment(progress, 0.18 + stagger, 0.3 + stagger))
+    const sharpness = progress < 0.18 ? sharpIn : Math.max(0, 1 - sharpOut)
+    const opacity = progress < 0.18
+      ? clamp(easeInCubic(linearSegment(progress, 0 + stagger, 0.08 + stagger)) * 0.9 + 0.1, 0, 1)
       : Math.max(0, 1 - easeInCubic(headerFade))
 
     return {
@@ -67,8 +67,8 @@ export default function ScrollRevealSection() {
   }
 
   function bodyLineStyle(index) {
-    const stagger = index * 0.05
-    const sharpness = easeInCubic(linearSegment(progress, 0.5 + stagger, 0.88 + stagger))
+    const stagger = index * 0.03
+    const sharpness = easeInCubic(linearSegment(progress, 0.28 + stagger, 0.68 + stagger))
 
     return {
       filter: `blur(${progressiveBlur(sharpness, MAX_BLUR)}px)`,
@@ -79,7 +79,7 @@ export default function ScrollRevealSection() {
     <section
       id="about"
       ref={containerRef}
-      className="relative h-[500vh] bg-beige md:h-[450vh]"
+      className="relative h-[250vh] bg-beige md:h-[220vh]"
     >
       <div className="sticky top-0 flex h-screen items-center justify-center overflow-hidden px-6">
         <div className="pointer-events-none absolute inset-y-0 left-0 w-32 opacity-30" aria-hidden="true">
