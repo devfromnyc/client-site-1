@@ -1,0 +1,132 @@
+{
+  "site": {
+    "title": "Breathwork Guru"
+  },
+  "header": {
+    "logoBefore": "Breathwork",
+    "logoAfter": "Guru",
+    "nav": [
+      { "label": "Home", "href": "#home" },
+      { "label": "About", "href": "#about" },
+      { "label": "Consultations", "href": "#consultations" },
+      { "label": "Book & Contact", "href": "#contact" }
+    ]
+  },
+  "hero": {
+    "subtitle": "A moment to breathe",
+    "headlineLines": ["Healing begins", "with the breath"],
+    "videoPoster": "https://images.unsplash.com/photo-1441974231531-c6227db76b6e?w=1920&q=80",
+    "videoSrc": "https://videos.pexels.com/video-files/3571264/3571264-uhd_2560_1440_25fps.mp4",
+    "primaryCta": {
+      "label": "Download App",
+      "href": "#download"
+    },
+    "secondaryCta": {
+      "label": "Teacher Training",
+      "href": "#training"
+    }
+  },
+  "about": {
+    "headlineLines": ["The art and science", "of breathwork"],
+    "body": "Breathwork is a conscious practice of regulating the breath to shift the nervous system, release stored tension, and access deeper states of healing. Rooted in ancient wisdom and validated by modern science, it offers a direct path to regulation, clarity, and transformation."
+  },
+  "benefits": {
+    "imageSrc": "https://images.unsplash.com/photo-1506126613408-eca07ce68773?w=1200&q=80",
+    "imageAlt": "Person practicing breathwork in a serene setting",
+    "title": "Transform your relationship with stress",
+    "body": "Our evidence-based breathwork programs help you move from chronic stress and anxiety into states of calm, clarity, and deep restoration. Whether you're new to breathwork or deepening an existing practice, we meet you where you are.",
+    "listLabel": "What you'll learn",
+    "listItems": [
+      "Nervous system regulation techniques",
+      "Guided breathwork session protocols",
+      "Somatic release and body awareness",
+      "Stress and anxiety reduction methods",
+      "Sleep improvement breath patterns",
+      "Personalized practice plans"
+    ]
+  },
+  "progress": {
+    "backgroundImage": "https://images.unsplash.com/photo-1518495973542-4542c06a5843?w=1920&q=80",
+    "steps": [
+      {
+        "title": "Sympathetic → Parasympathetic Shift",
+        "body": "Slow, rhythmic breathing moves the body out of stress mode and into regulation."
+      },
+      {
+        "title": "CO₂ Tolerance",
+        "body": "Better CO₂ control reduces panic signals and stabilizes emotional reactivity."
+      },
+      {
+        "title": "Vagal Tone Activation",
+        "body": "Extended exhales stimulate the vagus nerve, promoting calm and social connection."
+      },
+      {
+        "title": "Emotional Release",
+        "body": "Conscious breath patterns unlock stored trauma and facilitate deep somatic healing."
+      }
+    ]
+  },
+  "training": {
+    "headlineLines": ["Become a certified", "breathwork facilitator"],
+    "body": "Learn to guide others into deep healing states using the only clinically-validated breathwork method proven to reduce PTSD, anxiety & depression.",
+    "cta": {
+      "label": "Book your spot",
+      "href": "#contact"
+    },
+    "whatsIncludedLabel": "What's included",
+    "cards": [
+      {
+        "title": "In-depth breathwork curriculum and methodology",
+        "body": "Study the core principles of breathwork facilitation, including advanced cyclical patterns, somatic sequencing, and the structure behind safe, effective session design."
+      },
+      {
+        "title": "Trauma-informed facilitation training",
+        "body": "Learn how to hold space for clients processing deep emotional material with safety, presence, and professional boundaries."
+      },
+      {
+        "title": "Live practicum and supervised sessions",
+        "body": "Gain hands-on experience guiding real sessions under expert supervision, with personalized feedback to refine your technique."
+      },
+      {
+        "title": "Business and client acquisition toolkit",
+        "body": "Access templates, marketing strategies, and ethical frameworks to build a sustainable breathwork practice from day one."
+      },
+      {
+        "title": "Lifetime community and continuing education",
+        "body": "Join a global network of certified facilitators with ongoing workshops, mentorship, and advanced training opportunities."
+      }
+    ]
+  },
+  "programs": {
+    "imageSrc": "https://images.unsplash.com/photo-1544367567-0f2fcb009e0b?w=1200&q=80",
+    "imageAlt": "Peaceful meditation and breathwork session",
+    "title": "Find the right path for your journey",
+    "body": "From introductory sessions to advanced facilitator training, we offer programs designed for every stage of your breathwork journey. Connect with experienced guides who understand the science and the soul of conscious breathing.",
+    "listLabel": "Programs available",
+    "listItems": [
+      "One-on-one consultation sessions",
+      "Group breathwork workshops",
+      "Corporate wellness programs",
+      "Retreat and immersion experiences",
+      "Online guided practice library",
+      "Ongoing support and follow-up"
+    ]
+  },
+  "footer": {
+    "brandName": "Breathwork Guru",
+    "tagline": "Healing begins with the breath.",
+    "nav": [
+      { "label": "Home", "href": "#home" },
+      { "label": "About", "href": "#about" },
+      { "label": "Consultations", "href": "#consultations" },
+      { "label": "Book & Contact", "href": "#contact" }
+    ],
+    "social": [
+      { "label": "Instagram", "href": "https://instagram.com" },
+      { "label": "Facebook", "href": "https://facebook.com" },
+      { "label": "YouTube", "href": "https://youtube.com" },
+      { "label": "LinkedIn", "href": "https://linkedin.com" }
+    ],
+    "copyrightName": "Breathwork Guru"
+  }
+}
