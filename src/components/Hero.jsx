@@ -1,23 +1,49 @@
 import content from '../data/site-content.json'
 
 export default function Hero() {
-  const { subtitle, headlineLines, videoPoster, videoSrc, primaryCta, secondaryCta } =
-    content.hero
+  const {
+    subtitle,
+    headlineLines,
+    videoPoster,
+    youtubeVideoId = 'vQkqavvta7I',
+    youtubeStartSeconds = 8,
+    primaryCta,
+    secondaryCta,
+  } = content.hero
+
+  const embedSrc = [
+    `https://www.youtube.com/embed/${youtubeVideoId}`,
+    `?autoplay=1`,
+    `&mute=1`,
+    `&controls=0`,
+    `&playsinline=1`,
+    `&loop=1`,
+    `&playlist=${youtubeVideoId}`,
+    `&start=${youtubeStartSeconds}`,
+    `&modestbranding=1`,
+    `&rel=0`,
+    `&showinfo=0`,
+    `&iv_load_policy=3`,
+    `&disablekb=1`,
+  ].join('')
 
   return (
     <section id="home" className="relative h-screen w-full overflow-hidden">
-      <video
-        className="absolute inset-0 h-full w-full object-cover"
-        autoPlay
-        muted
-        loop
-        playsInline
-        controls
-        poster={videoPoster}
-      >
-        <source src={videoSrc} type="video/mp4" />
-        Your browser does not support the video tag.
-      </video>
+      <div className="pointer-events-none absolute inset-0 overflow-hidden" aria-hidden="true">
+        {/* Scale 16:9 embed to cover the viewport like object-fit: cover */}
+        <iframe
+          title="Hero background video"
+          src={embedSrc}
+          allow="autoplay; encrypted-media; picture-in-picture"
+          allowFullScreen={false}
+          className="absolute left-1/2 top-1/2 h-[56.25vw] min-h-full w-full min-w-[177.78vh] -translate-x-1/2 -translate-y-1/2 border-0"
+          style={
+            videoPoster
+              ? { backgroundImage: `url(${videoPoster})`, backgroundSize: 'cover' }
+              : undefined
+          }
+        />
+      </div>
 
       <div
         className="absolute inset-0 bg-gradient-to-b from-black/50 via-black/40 to-black/60"
