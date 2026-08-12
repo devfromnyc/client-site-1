@@ -1,4 +1,30 @@
+import { useEffect, useRef } from 'react'
 import content from '../data/site-content.json'
+import { shouldRestartHeroLoop } from '../lib/heroLoop'
+
+function loadYouTubeApi() {
+  if (typeof window === 'undefined') {
+    return Promise.reject(new Error('YouTube API requires a browser'))
+  }
+
+  if (window.YT?.Player) {
+    return Promise.resolve(window.YT)
+  }
+
+  return new Promise((resolve) => {
+    const previous = window.onYouTubeIframeAPIReady
+    window.onYouTubeIframeAPIReady = () => {
+      if (typeof previous === 'function') previous()
+      resolve(window.YT)
+    }
+
+    if (!document.querySelector('script[src="https://www.youtube.com/iframe_api"]')) {
+      const tag = document.createElement('script')
+      tag.src = 'https://www.youtube.com/iframe_api'
+      document.head.appendChild(tag)
+    }
+  })
+}
 
 export default function Hero() {
   const {
@@ -6,43 +32,108 @@ export default function Hero() {
     headlineLines,
     videoPoster,
     youtubeVideoId = 'vQkqavvta7I',
-    youtubeStartSeconds = 8,
+    youtubeStartSeconds = 4,
+    youtubeEndSeconds = 40,
     primaryCta,
     secondaryCta,
   } = content.hero
 
-  const embedSrc = [
-    `https://www.youtube.com/embed/${youtubeVideoId}`,
-    `?autoplay=1`,
-    `&mute=1`,
-    `&controls=0`,
-    `&playsinline=1`,
-    `&loop=1`,
-    `&playlist=${youtubeVideoId}`,
-    `&start=${youtubeStartSeconds}`,
-    `&modestbranding=1`,
-    `&rel=0`,
-    `&showinfo=0`,
-    `&iv_load_policy=3`,
-    `&disablekb=1`,
-  ].join('')
+  const hostRef = useRef(null)
+  const playerRef = useRef(null)
+  const pollRef = useRef(0)
+
+  useEffect(() => {
+    let cancelled = false
+    const start = Number(youtubeStartSeconds)
+    const end = Number(youtubeEndSeconds)
+
+    const restartWindow = (player) => {
+      if (!player?.seekTo) return
+      player.seekTo(start, true)
+      player.playVideo?.()
+    }
+
+    loadYouTubeApi()
+      .then((YT) => {
+        if (cancelled || !hostRef.current) return
+
+        playerRef.current = new YT.Player(hostRef.current, {
+          videoId: youtubeVideoId,
+          width: '100%',
+          height: '100%',
+          playerVars: {
+            autoplay: 1,
+            mute: 1,
+            controls: 0,
+            playsinline: 1,
+            modestbranding: 1,
+            rel: 0,
+            iv_load_policy: 3,
+            disablekb: 1,
+            fs: 0,
+            start,
+          },
+          events: {
+            onReady: (event) => {
+              event.target.mute()
+              restartWindow(event.target)
+            },
+            onStateChange: (event) => {
+              if (event.data === YT.PlayerState.ENDED) {
+                restartWindow(event.target)
+              }
+            },
+          },
+        })
+
+        pollRef.current = window.setInterval(() => {
+          const player = playerRef.current
+          if (!player?.getCurrentTime) return
+          try {
+            const t = player.getCurrentTime()
+            if (shouldRestartHeroLoop(t, start, end)) {
+              restartWindow(player)
+            }
+          } catch {
+            /* player may not be ready yet */
+          }
+        }, 250)
+
+        if (import.meta.env.DEV) {
+          window.__heroYtPlayer = playerRef
+        }
+      })
+      .catch((error) => {
+        console.error('[hero] YouTube API failed to load', error)
+      })
+
+    return () => {
+      cancelled = true
+      window.clearInterval(pollRef.current)
+      try {
+        playerRef.current?.destroy?.()
+      } catch {
+        /* ignore */
+      }
+      playerRef.current = null
+      if (import.meta.env.DEV && window.__heroYtPlayer === playerRef) {
+        delete window.__heroYtPlayer
+      }
+    }
+  }, [youtubeVideoId, youtubeStartSeconds, youtubeEndSeconds])
 
   return (
     <section id="home" className="relative h-screen w-full overflow-hidden">
-      <div className="pointer-events-none absolute inset-0 overflow-hidden" aria-hidden="true">
-        {/* Scale 16:9 embed to cover the viewport like object-fit: cover */}
-        <iframe
-          title="Hero background video"
-          src={embedSrc}
-          allow="autoplay; encrypted-media; picture-in-picture"
-          allowFullScreen={false}
-          className="absolute left-1/2 top-1/2 h-[56.25vw] min-h-full w-full min-w-[177.78vh] -translate-x-1/2 -translate-y-1/2 border-0"
-          style={
-            videoPoster
-              ? { backgroundImage: `url(${videoPoster})`, backgroundSize: 'cover' }
-              : undefined
-          }
-        />
+      <div
+        className="pointer-events-none absolute inset-0 overflow-hidden [&_iframe]:absolute [&_iframe]:left-1/2 [&_iframe]:top-1/2 [&_iframe]:h-[56.25vw] [&_iframe]:min-h-full [&_iframe]:w-full [&_iframe]:min-w-[177.78vh] [&_iframe]:-translate-x-1/2 [&_iframe]:-translate-y-1/2 [&_iframe]:border-0"
+        aria-hidden="true"
+        style={
+          videoPoster
+            ? { backgroundImage: `url(${videoPoster})`, backgroundSize: 'cover' }
+            : undefined
+        }
+      >
+        <div ref={hostRef} className="h-full w-full" title="Hero background video" />
       </div>
 
       <div

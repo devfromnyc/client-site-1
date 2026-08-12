@@ -17,7 +17,8 @@
     "headlineLines": ["Healing begins", "with the breath"],
     "videoPoster": "https://images.unsplash.com/photo-1441974231531-c6227db76b6e?w=1920&q=80",
     "youtubeVideoId": "vQkqavvta7I",
-    "youtubeStartSeconds": 8,
+    "youtubeStartSeconds": 4,
+    "youtubeEndSeconds": 40,
     "primaryCta": {
       "label": "Download App",
       "href": "#download"
