@@ -165,6 +165,13 @@ export default function Hero() {
         aria-hidden="true"
       />
 
+      <div
+        className="pointer-events-none absolute inset-0 flex items-center justify-center"
+        aria-hidden="true"
+      >
+        <div className="h-20 w-20 rounded-full bg-black/50 blur-xl" />
+      </div>
+
       <div className="pointer-events-none absolute inset-0 flex items-center justify-center" aria-hidden="true">
         <div className="h-[70vmin] w-[70vmin] rounded-full border border-white/20" />
         <div className="absolute h-[55vmin] w-[55vmin] rounded-full border border-white/15" />
