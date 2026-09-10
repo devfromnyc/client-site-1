@@ -42,6 +42,7 @@ export default function Hero() {
   const playerRef = useRef(null)
   const pollRef = useRef(0)
   const [isPlaying, setIsPlaying] = useState(true)
+  const [isVideoReady, setIsVideoReady] = useState(false)
 
   const handlePlayPause = () => {
     const player = playerRef.current
@@ -90,7 +91,7 @@ export default function Hero() {
             iv_load_policy: 3,
             disablekb: 1,
             fs: 0,
-            start,
+            // start,  // TEST: commenting out to see if this fixes the delay/play button issue
           },
           events: {
             onReady: (event) => {
@@ -103,6 +104,7 @@ export default function Hero() {
               }
               if (event.data === YT.PlayerState.PLAYING) {
                 setIsPlaying(true)
+                setIsVideoReady(true)
               } else if (event.data === YT.PlayerState.PAUSED) {
                 setIsPlaying(false)
               }
@@ -149,16 +151,21 @@ export default function Hero() {
   return (
     <section id="home" className="relative h-screen w-full overflow-hidden">
       <div
-        className="pointer-events-none absolute inset-0 overflow-hidden [&_iframe]:absolute [&_iframe]:left-1/2 [&_iframe]:top-1/2 [&_iframe]:h-[56.25vw] [&_iframe]:min-h-full [&_iframe]:w-full [&_iframe]:min-w-[177.78vh] [&_iframe]:-translate-x-1/2 [&_iframe]:-translate-y-1/2 [&_iframe]:border-0"
+        className={`pointer-events-none absolute inset-0 overflow-hidden transition-opacity duration-500 [&_iframe]:absolute [&_iframe]:left-1/2 [&_iframe]:top-1/2 [&_iframe]:h-[56.25vw] [&_iframe]:min-h-full [&_iframe]:w-full [&_iframe]:min-w-[177.78vh] [&_iframe]:-translate-x-1/2 [&_iframe]:-translate-y-1/2 [&_iframe]:border-0 ${isVideoReady ? 'opacity-100' : 'opacity-0'}`}
         aria-hidden="true"
-        style={
-          videoPoster
-            ? { backgroundImage: `url(${videoPoster})`, backgroundSize: 'cover' }
-            : undefined
-        }
       >
         <div ref={hostRef} className="h-full w-full" title="Hero background video" />
       </div>
+
+      <div
+        className={`pointer-events-none absolute inset-0 transition-opacity duration-500 ${isVideoReady ? 'opacity-0' : 'opacity-100'}`}
+        aria-hidden="true"
+        style={
+          videoPoster
+            ? { backgroundImage: `url(${videoPoster})`, backgroundSize: 'cover', backgroundPosition: 'center' }
+            : undefined
+        }
+      />
 
       <div
         className="absolute inset-0 bg-gradient-to-b from-black/50 via-black/40 to-black/60"
