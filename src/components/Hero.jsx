@@ -153,7 +153,7 @@ export default function Hero() {
   return (
     <section id="home" className="relative h-screen w-full overflow-hidden">
       <div
-        className={`pointer-events-none absolute inset-0 overflow-hidden transition-opacity duration-300 [&_iframe]:absolute [&_iframe]:left-1/2 [&_iframe]:top-1/2 [&_iframe]:h-[56.25vw] [&_iframe]:min-h-full [&_iframe]:w-full [&_iframe]:min-w-[177.78vh] [&_iframe]:-translate-x-1/2 [&_iframe]:-translate-y-1/2 [&_iframe]:border-0 ${isVideoReady ? 'opacity-100' : 'opacity-0'}`}
+        className={`pointer-events-none absolute inset-0 overflow-hidden transition-opacity duration-300 [&_iframe]:absolute [&_iframe]:left-1/2 [&_iframe]:top-1/2 [&_iframe]:h-[56.25vw] [&_iframe]:min-h-full [&_iframe]:w-full [&_iframe]:min-w-[177.78vh] [&_iframe]:-translate-x-1/2 [&_iframe]:-translate-y-1/2 [&_iframe]:scale-125 [&_iframe]:border-0 ${isVideoReady ? 'opacity-100' : 'opacity-0'}`}
         aria-hidden="true"
       >
         <div ref={hostRef} className="h-full w-full" title="Hero background video" />
