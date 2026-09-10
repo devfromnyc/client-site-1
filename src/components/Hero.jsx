@@ -169,7 +169,7 @@ export default function Hero() {
         className="pointer-events-none absolute inset-0 flex items-center justify-center"
         aria-hidden="true"
       >
-        <div className="h-20 w-20 rounded-full bg-black/50 blur-xl" />
+        <div className="h-32 w-32 rounded-full bg-black/70 blur-2xl" />
       </div>
 
       <div className="pointer-events-none absolute inset-0 flex items-center justify-center" aria-hidden="true">
