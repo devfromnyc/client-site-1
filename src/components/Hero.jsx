@@ -161,13 +161,6 @@ export default function Hero() {
       </div>
 
       <div
-        className="pointer-events-none absolute inset-0 flex items-center justify-center"
-        aria-hidden="true"
-      >
-        <div className="h-20 w-28 rounded-xl bg-black/70" />
-      </div>
-
-      <div
         className="absolute inset-0 bg-gradient-to-b from-black/50 via-black/40 to-black/60"
         aria-hidden="true"
       />
