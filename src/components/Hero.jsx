@@ -95,7 +95,7 @@ export default function Hero() {
           events: {
             onReady: (event) => {
               event.target.mute()
-              restartWindow(event.target)
+              event.target.playVideo()
             },
             onStateChange: (event) => {
               if (event.data === YT.PlayerState.ENDED) {
@@ -161,19 +161,9 @@ export default function Hero() {
       </div>
 
       <div
-        className="absolute inset-0 bg-gradient-to-b from-black/50 via-black/60 to-black/60"
+        className="absolute inset-0 bg-gradient-to-b from-black/50 via-black/40 to-black/60"
         aria-hidden="true"
       />
-
-      <div
-        className="pointer-events-none absolute inset-0 flex items-center justify-center"
-        aria-hidden="true"
-      >
-        <div 
-          className="h-24 w-24 rounded-full"
-          style={{ background: 'radial-gradient(circle, rgba(0,0,0,0.95) 0%, rgba(0,0,0,0.8) 50%, rgba(0,0,0,0) 100%)' }}
-        />
-      </div>
 
       <div className="pointer-events-none absolute inset-0 flex items-center justify-center" aria-hidden="true">
         <div className="h-[70vmin] w-[70vmin] rounded-full border border-white/20" />
