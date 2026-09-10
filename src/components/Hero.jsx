@@ -104,7 +104,6 @@ export default function Hero() {
               }
               if (event.data === YT.PlayerState.PLAYING) {
                 setIsPlaying(true)
-                setIsVideoReady(true)
               } else if (event.data === YT.PlayerState.PAUSED) {
                 setIsPlaying(false)
               }
@@ -117,6 +116,9 @@ export default function Hero() {
           if (!player?.getCurrentTime) return
           try {
             const t = player.getCurrentTime()
+            if (t > start + 0.5) {
+              setIsVideoReady(true)
+            }
             if (shouldRestartHeroLoop(t, start, end)) {
               restartWindow(player)
             }
