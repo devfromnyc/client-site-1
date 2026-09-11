@@ -1,168 +1,75 @@
 import { useEffect, useRef, useState } from 'react'
 import content from '../data/site-content.json'
-import { shouldRestartHeroLoop } from '../lib/heroLoop'
 
-function loadYouTubeApi() {
-  if (typeof window === 'undefined') {
-    return Promise.reject(new Error('YouTube API requires a browser'))
-  }
-
-  if (window.YT?.Player) {
-    return Promise.resolve(window.YT)
-  }
-
-  return new Promise((resolve) => {
-    const previous = window.onYouTubeIframeAPIReady
-    window.onYouTubeIframeAPIReady = () => {
-      if (typeof previous === 'function') previous()
-      resolve(window.YT)
-    }
-
-    if (!document.querySelector('script[src="https://www.youtube.com/iframe_api"]')) {
-      const tag = document.createElement('script')
-      tag.src = 'https://www.youtube.com/iframe_api'
-      document.head.appendChild(tag)
-    }
-  })
-}
+const VIDEO_START = 9
+const VIDEO_END = 36
 
 export default function Hero() {
   const {
     subtitle,
     headlineLines,
-    videoPoster,
-    youtubeVideoId = 'vQkqavvta7I',
-    youtubeStartSeconds = 4,
-    youtubeEndSeconds = 40,
     primaryCta,
     secondaryCta,
   } = content.hero
 
-  const hostRef = useRef(null)
-  const playerRef = useRef(null)
-  const pollRef = useRef(0)
+  const videoRef = useRef(null)
   const [isPlaying, setIsPlaying] = useState(true)
-  const [isVideoReady, setIsVideoReady] = useState(false)
 
   const handlePlayPause = () => {
-    const player = playerRef.current
-    if (!player) return
+    const video = videoRef.current
+    if (!video) return
 
-    try {
-      const state = player.getPlayerState?.()
-      if (state === 1) {
-        player.pauseVideo?.()
-        setIsPlaying(false)
-      } else {
-        player.playVideo?.()
-        setIsPlaying(true)
-      }
-    } catch {
-      /* player may not be ready */
+    if (video.paused) {
+      video.play()
+      setIsPlaying(true)
+    } else {
+      video.pause()
+      setIsPlaying(false)
     }
   }
 
   useEffect(() => {
-    let cancelled = false
-    const start = Number(youtubeStartSeconds)
-    const end = Number(youtubeEndSeconds)
+    const video = videoRef.current
+    if (!video) return
 
-    const restartWindow = (player) => {
-      if (!player?.seekTo) return
-      player.seekTo(start, true)
-      player.playVideo?.()
+    video.currentTime = VIDEO_START
+
+    const handleTimeUpdate = () => {
+      if (video.currentTime >= VIDEO_END || video.currentTime < VIDEO_START) {
+        video.currentTime = VIDEO_START
+      }
     }
 
-    loadYouTubeApi()
-      .then((YT) => {
-        if (cancelled || !hostRef.current) return
+    const handlePlay = () => setIsPlaying(true)
+    const handlePause = () => setIsPlaying(false)
 
-        playerRef.current = new YT.Player(hostRef.current, {
-          videoId: youtubeVideoId,
-          width: '100%',
-          height: '100%',
-          playerVars: {
-            autoplay: 1,
-            mute: 1,
-            controls: 0,
-            playsinline: 1,
-            modestbranding: 1,
-            rel: 0,
-            iv_load_policy: 3,
-            disablekb: 1,
-            fs: 0,
-            start,
-          },
-          events: {
-            onReady: (event) => {
-              event.target.mute()
-              event.target.playVideo()
-            },
-            onStateChange: (event) => {
-              if (event.data === YT.PlayerState.ENDED) {
-                restartWindow(event.target)
-              }
-              if (event.data === YT.PlayerState.PLAYING) {
-                setIsPlaying(true)
-              } else if (event.data === YT.PlayerState.PAUSED) {
-                setIsPlaying(false)
-              }
-            },
-          },
-        })
-
-        pollRef.current = window.setInterval(() => {
-          const player = playerRef.current
-          if (!player?.getCurrentTime) return
-          try {
-            const t = player.getCurrentTime()
-            if (t > start + 0.5) {
-              setIsVideoReady(true)
-            }
-            if (shouldRestartHeroLoop(t, start, end)) {
-              restartWindow(player)
-            }
-          } catch {
-            /* player may not be ready yet */
-          }
-        }, 250)
-
-        if (import.meta.env.DEV) {
-          window.__heroYtPlayer = playerRef
-        }
-      })
-      .catch((error) => {
-        console.error('[hero] YouTube API failed to load', error)
-      })
+    video.addEventListener('timeupdate', handleTimeUpdate)
+    video.addEventListener('play', handlePlay)
+    video.addEventListener('pause', handlePause)
 
     return () => {
-      cancelled = true
-      window.clearInterval(pollRef.current)
-      try {
-        playerRef.current?.destroy?.()
-      } catch {
-        /* ignore */
-      }
-      playerRef.current = null
-      if (import.meta.env.DEV && window.__heroYtPlayer === playerRef) {
-        delete window.__heroYtPlayer
-      }
+      video.removeEventListener('timeupdate', handleTimeUpdate)
+      video.removeEventListener('play', handlePlay)
+      video.removeEventListener('pause', handlePause)
     }
-  }, [youtubeVideoId, youtubeStartSeconds, youtubeEndSeconds])
+  }, [])
 
   return (
     <section id="home" className="relative h-screen w-full overflow-hidden">
       <div
-        className={`pointer-events-none absolute inset-0 overflow-hidden transition-opacity duration-300 [&_iframe]:absolute [&_iframe]:left-1/2 [&_iframe]:top-1/2 [&_iframe]:h-[56.25vw] [&_iframe]:min-h-full [&_iframe]:w-full [&_iframe]:min-w-[177.78vh] [&_iframe]:-translate-x-1/2 [&_iframe]:-translate-y-1/2 [&_iframe]:border-0 ${isVideoReady ? 'opacity-100' : 'opacity-0'}`}
+        className="pointer-events-none absolute inset-0 overflow-hidden"
         aria-hidden="true"
       >
-        <div ref={hostRef} className="h-full w-full" title="Hero background video" />
+        <video
+          ref={videoRef}
+          className="absolute left-1/2 top-1/2 h-[56.25vw] min-h-full w-full min-w-[177.78vh] -translate-x-1/2 -translate-y-1/2 object-cover"
+          src="/hero-video.mp4"
+          autoPlay
+          muted
+          loop
+          playsInline
+        />
       </div>
-
-      <div
-        className={`pointer-events-none absolute inset-0 bg-black transition-opacity duration-300 ${isVideoReady ? 'opacity-0' : 'opacity-100'}`}
-        aria-hidden="true"
-      />
 
       <div
         className="absolute inset-0 bg-gradient-to-b from-black/50 via-black/40 to-black/60"
