@@ -89,7 +89,7 @@ ${formData.message}
 
   if (isSubmitted) {
     return (
-      <section id="contact" className="bg-beige py-20 lg:py-32">
+      <section className="min-h-screen bg-beige py-20 lg:py-32">
         <div className="mx-auto max-w-2xl px-6 text-center">
           <div className="mb-6 inline-flex h-16 w-16 items-center justify-center rounded-full bg-green-100">
             <svg className="h-8 w-8 text-green-600" fill="none" viewBox="0 0 24 24" stroke="currentColor">
@@ -115,7 +115,7 @@ ${formData.message}
   }
 
   return (
-    <section id="contact" className="bg-beige py-20 lg:py-32">
+    <section className="min-h-screen bg-beige py-20 lg:py-32">
       <div className="mx-auto max-w-6xl px-6">
         <div className="mb-12 text-center lg:mb-16">
           <p className="text-xs font-medium uppercase tracking-[0.35em] text-ink/60">{subtitle}</p>

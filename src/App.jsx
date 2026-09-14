@@ -1,13 +1,8 @@
 import { useEffect } from 'react'
+import { BrowserRouter, Routes, Route } from 'react-router-dom'
 import content from './data/site-content.json'
-import Header from './components/Header'
-import Hero from './components/Hero'
-import ScrollRevealSection from './components/ScrollRevealSection'
-import ImageTextSection from './components/ImageTextSection'
-import ProgressSection from './components/ProgressSection'
-import StickyCardsSection from './components/StickyCardsSection'
-import ContactSection from './components/ContactSection'
-import Footer from './components/Footer'
+import HomePage from './pages/HomePage'
+import ContactPage from './pages/ContactPage'
 
 export default function App() {
   useEffect(() => {
@@ -15,26 +10,11 @@ export default function App() {
   }, [])
 
   return (
-    <>
-      <Header />
-      <Hero />
-      <main className="flex flex-col gap-16 pb-16 lg:gap-24 lg:pb-24">
-        <ScrollRevealSection />
-        <ImageTextSection
-          id="benefits"
-          imagePosition="left"
-          {...content.benefits}
-        />
-        <ProgressSection />
-        <StickyCardsSection />
-        <ImageTextSection
-          id="programs"
-          imagePosition="right"
-          {...content.programs}
-        />
-      </main>
-      <ContactSection />
-      <Footer />
-    </>
+    <BrowserRouter>
+      <Routes>
+        <Route path="/" element={<HomePage />} />
+        <Route path="/contact" element={<ContactPage />} />
+      </Routes>
+    </BrowserRouter>
   )
 }
