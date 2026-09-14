@@ -1,8 +1,8 @@
 import { useState, useMemo, useRef } from 'react'
 import content from '../data/site-content.json'
 
-const PLACEHOLDER_EMAIL = 'bookings@breathworkguru.com'
-const PLACEHOLDER_WHATSAPP = '15551234567'
+const PLACEHOLDER_EMAIL = 'Reforginglightsobriety@gmail.com'
+const PLACEHOLDER_WHATSAPP = '19297048467'
 
 const TIME_SLOTS = [
   '9:00 AM', '10:00 AM', '11:00 AM',
