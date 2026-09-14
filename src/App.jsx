@@ -6,6 +6,7 @@ import ScrollRevealSection from './components/ScrollRevealSection'
 import ImageTextSection from './components/ImageTextSection'
 import ProgressSection from './components/ProgressSection'
 import StickyCardsSection from './components/StickyCardsSection'
+import ContactSection from './components/ContactSection'
 import Footer from './components/Footer'
 
 export default function App() {
@@ -32,6 +33,7 @@ export default function App() {
           {...content.programs}
         />
       </main>
+      <ContactSection />
       <Footer />
     </>
   )
