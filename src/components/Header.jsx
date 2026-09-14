@@ -1,4 +1,5 @@
 import { useState } from 'react'
+import { Link, useLocation } from 'react-router-dom'
 import content from '../data/site-content.json'
 
 function LogoIcon() {
@@ -23,9 +24,45 @@ function LogoIcon() {
   )
 }
 
+function NavLink({ href, children, onClick, tabIndex, className }) {
+  const location = useLocation()
+  const isExternal = href.startsWith('/') && !href.startsWith('/#')
+  
+  if (isExternal) {
+    return (
+      <Link to={href} onClick={onClick} tabIndex={tabIndex} className={className}>
+        {children}
+      </Link>
+    )
+  }
+
+  if (location.pathname !== '/') {
+    const hashHref = href.startsWith('#') ? `/${href}` : href
+    return (
+      <Link to={hashHref} onClick={onClick} tabIndex={tabIndex} className={className}>
+        {children}
+      </Link>
+    )
+  }
+
+  return (
+    <a href={href} onClick={onClick} tabIndex={tabIndex} className={className}>
+      {children}
+    </a>
+  )
+}
+
 export default function Header() {
   const [menuOpen, setMenuOpen] = useState(false)
   const { logoBefore, logoAfter, nav } = content.header
+  const location = useLocation()
+
+  const handleLogoClick = () => {
+    setMenuOpen(false)
+    if (location.pathname === '/') {
+      window.scrollTo({ top: 0, behavior: 'smooth' })
+    }
+  }
 
   return (
     <header className="sticky top-0 z-50">
@@ -51,10 +88,10 @@ export default function Header() {
               />
             </button>
 
-            <a
-              href="#home"
+            <Link
+              to="/"
               className="absolute left-1/2 flex -translate-x-1/2 items-center gap-2 lg:static lg:translate-x-0"
-              onClick={() => setMenuOpen(false)}
+              onClick={handleLogoClick}
             >
               <span className="font-serif text-xl font-semibold tracking-tight text-ink">
                 {logoBefore}
@@ -63,17 +100,17 @@ export default function Header() {
               <span className="font-serif text-xl font-semibold tracking-tight text-ink">
                 {logoAfter}
               </span>
-            </a>
+            </Link>
 
             <nav className="hidden items-center gap-8 lg:flex" aria-label="Main navigation">
               {nav.map((item) => (
-                <a
+                <NavLink
                   key={item.href}
                   href={item.href}
                   className="text-sm font-medium text-ink/80 transition-colors hover:text-ink"
                 >
                   {item.label}
-                </a>
+                </NavLink>
               ))}
             </nav>
 
@@ -94,14 +131,14 @@ export default function Header() {
           <ul className="flex flex-col items-center gap-5">
             {nav.map((item) => (
               <li key={item.href}>
-                <a
+                <NavLink
                   href={item.href}
                   tabIndex={menuOpen ? 0 : -1}
                   className="text-base font-medium text-ink/80 transition-colors hover:text-ink"
                   onClick={() => setMenuOpen(false)}
                 >
                   {item.label}
-                </a>
+                </NavLink>
               </li>
             ))}
           </ul>

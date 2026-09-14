@@ -9,7 +9,7 @@
       { "label": "Home", "href": "#home" },
       { "label": "About", "href": "#about" },
       { "label": "Consultations", "href": "#consultations" },
-      { "label": "Book & Contact", "href": "#contact" }
+      { "label": "Book & Contact", "href": "/contact" }
     ]
   },
   "hero": {
@@ -131,7 +131,7 @@
       { "label": "Home", "href": "#home" },
       { "label": "About", "href": "#about" },
       { "label": "Consultations", "href": "#consultations" },
-      { "label": "Book & Contact", "href": "#contact" }
+      { "label": "Book & Contact", "href": "/contact" }
     ],
     "social": [
       { "label": "Instagram", "href": "https://instagram.com" },
