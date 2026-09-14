@@ -33,7 +33,7 @@
     "body": "Breathwork is a conscious practice of regulating the breath to shift the nervous system, release stored tension, and access deeper states of healing. Rooted in ancient wisdom and validated by modern science, it offers a direct path to regulation, clarity, and transformation."
   },
   "benefits": {
-    "imageSrc": "/stacking-rocks.jpg",
+    "imageSrc": "/stacked_rocks.jpg",
     "imageAlt": "Balanced stacking rocks in water representing calm and stability",
     "title": "Transform your relationship with stress",
     "body": "Our evidence-based breathwork programs help you move from chronic stress and anxiety into states of calm, clarity, and deep restoration. Whether you're new to breathwork or deepening an existing practice, we meet you where you are.",
@@ -48,7 +48,7 @@
     ]
   },
   "progress": {
-    "backgroundImage": "/flower-growing.jpg",
+    "backgroundImage": "/flower_growing.jpg",
     "steps": [
       {
         "title": "Sympathetic → Parasympathetic Shift",
