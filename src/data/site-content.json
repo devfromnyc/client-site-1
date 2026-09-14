@@ -114,6 +114,16 @@
       "Ongoing support and follow-up"
     ]
   },
+  "contact": {
+    "title": "Book & Contact",
+    "subtitle": "Let's connect",
+    "formLabels": {
+      "name": "Full Name",
+      "email": "Email Address",
+      "phone": "Phone Number (optional)",
+      "message": "Message"
+    }
+  },
   "footer": {
     "brandName": "Breathwork Guru",
     "tagline": "Healing begins with the breath.",
