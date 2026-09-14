@@ -100,8 +100,8 @@
     ]
   },
   "programs": {
-    "imageSrc": "https://images.unsplash.com/photo-1544367567-0f2fcb009e0b?w=1200&q=80",
-    "imageAlt": "Peaceful meditation and breathwork session",
+    "imageSrc": "/walking_downstairs.jpg",
+    "imageAlt": "Person walking down stairs representing the journey forward",
     "title": "Find the right path for your journey",
     "body": "From introductory sessions to advanced facilitator training, we offer programs designed for every stage of your breathwork journey. Connect with experienced guides who understand the science and the soul of conscious breathing.",
     "listLabel": "Programs available",
