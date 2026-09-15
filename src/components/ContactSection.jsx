@@ -123,7 +123,7 @@ ${formData.message}
         </div>
 
         <div className="grid gap-12 lg:grid-cols-2 lg:gap-16">
-          <div className="flex flex-col justify-center">
+          <div className="flex flex-col">
             <h3 className="mb-4 font-serif text-xl font-medium text-ink">Get in Touch</h3>
             <p className="text-lg leading-relaxed text-ink/70">
               We'd love to hear from you. Whether you have questions about our services, 
