@@ -1,32 +1,8 @@
-import { useState, useMemo, useRef } from 'react'
+import { useState, useRef } from 'react'
 import content from '../data/site-content.json'
 
 const PLACEHOLDER_EMAIL = 'Reforginglightsobriety@gmail.com'
 const PLACEHOLDER_WHATSAPP = '19297048467'
-
-const TIME_SLOTS = [
-  '9:00 AM', '10:00 AM', '11:00 AM',
-  '1:00 PM', '2:00 PM', '3:00 PM', '4:00 PM'
-]
-
-function getNextSevenDays() {
-  const days = []
-  const today = new Date()
-  for (let i = 1; i <= 7; i++) {
-    const date = new Date(today)
-    date.setDate(today.getDate() + i)
-    days.push(date)
-  }
-  return days
-}
-
-function formatDate(date) {
-  return date.toLocaleDateString('en-US', { weekday: 'short', month: 'short', day: 'numeric' })
-}
-
-function formatDateForEmail(date) {
-  return date.toLocaleDateString('en-US', { weekday: 'long', month: 'long', day: 'numeric', year: 'numeric' })
-}
 
 function EmailIcon() {
   return (
@@ -47,16 +23,12 @@ function WhatsAppIcon() {
 export default function ContactSection() {
   const { title, subtitle, formLabels } = content.contact
   const formRef = useRef(null)
-
-  const availableDays = useMemo(() => getNextSevenDays(), [])
   
   const [formData, setFormData] = useState({
     name: '',
     email: '',
     phone: '',
-    message: '',
-    selectedDate: null,
-    selectedTime: ''
+    message: ''
   })
   const [isSubmitted, setIsSubmitted] = useState(false)
   const [submittedVia, setSubmittedVia] = useState('')
@@ -66,24 +38,11 @@ export default function ContactSection() {
     setFormData(prev => ({ ...prev, [name]: value }))
   }
 
-  const handleDateSelect = (date) => {
-    setFormData(prev => ({ ...prev, selectedDate: date }))
-  }
-
-  const handleTimeSelect = (time) => {
-    setFormData(prev => ({ ...prev, selectedTime: time }))
-  }
-
   const buildMessageBody = () => {
-    const appointmentInfo = formData.selectedDate && formData.selectedTime
-      ? `\n\nRequested Appointment:\n${formatDateForEmail(formData.selectedDate)} at ${formData.selectedTime}`
-      : ''
-
     return `
 Name: ${formData.name}
 Email: ${formData.email}
 Phone: ${formData.phone || 'Not provided'}
-${appointmentInfo}
 
 Message:
 ${formData.message}
@@ -101,7 +60,7 @@ ${formData.message}
   const handleEmailSubmit = () => {
     if (!validateForm()) return
 
-    const subject = encodeURIComponent(`New Booking Request from ${formData.name}`)
+    const subject = encodeURIComponent(`New Inquiry from ${formData.name}`)
     const body = encodeURIComponent(buildMessageBody())
     
     window.open(`mailto:${PLACEHOLDER_EMAIL}?subject=${subject}&body=${body}`, '_blank')
@@ -113,7 +72,7 @@ ${formData.message}
   const handleWhatsAppSubmit = () => {
     if (!validateForm()) return
 
-    const message = encodeURIComponent(`*New Booking Request*\n\n${buildMessageBody()}`)
+    const message = encodeURIComponent(`*New Inquiry*\n\n${buildMessageBody()}`)
     
     window.open(`https://wa.me/${PLACEHOLDER_WHATSAPP}?text=${message}`, '_blank')
     
@@ -133,18 +92,18 @@ ${formData.message}
           <h2 className="font-serif text-3xl font-medium text-ink md:text-4xl">Almost there!</h2>
           <p className="mt-4 text-ink/70">
             {submittedVia === 'email' 
-              ? 'Your email app should have opened with your booking details. Just hit send!'
-              : 'WhatsApp should have opened with your booking details. Just hit send!'
+              ? 'Your email app should have opened with your message. Just hit send!'
+              : 'WhatsApp should have opened with your message. Just hit send!'
             }
           </p>
           <p className="mt-2 text-sm text-ink/50">
-            We'll get back to you within 24-48 hours to confirm your appointment.
+            We'll get back to you within 24 hours.
           </p>
           <button
             onClick={() => {
               setIsSubmitted(false)
               setSubmittedVia('')
-              setFormData({ name: '', email: '', phone: '', message: '', selectedDate: null, selectedTime: '' })
+              setFormData({ name: '', email: '', phone: '', message: '' })
             }}
             className="mt-8 rounded-md bg-ink px-6 py-3 text-sm font-medium text-white transition hover:bg-ink/80"
           >
@@ -164,67 +123,29 @@ ${formData.message}
         </div>
 
         <div className="grid gap-12 lg:grid-cols-2 lg:gap-16">
-          <div>
-            <h3 className="mb-6 font-serif text-xl font-medium text-ink">Select a Date & Time</h3>
+          <div className="flex flex-col justify-center">
+            <h3 className="mb-4 font-serif text-xl font-medium text-ink">Get in Touch</h3>
+            <p className="text-lg leading-relaxed text-ink/70">
+              We'd love to hear from you. Whether you have questions about our services, 
+              want to learn more about breathwork, or are ready to begin your journey — 
+              reach out and we'll respond within 24 hours.
+            </p>
             
-            <div className="mb-6">
-              <div className="grid grid-cols-7 gap-2">
-                {availableDays.map((date) => (
-                  <button
-                    key={date.toISOString()}
-                    type="button"
-                    onClick={() => handleDateSelect(date)}
-                    className={`flex flex-col items-center rounded-lg border p-2 text-center transition ${
-                      formData.selectedDate?.toDateString() === date.toDateString()
-                        ? 'border-ink bg-ink text-white'
-                        : 'border-ink/20 bg-white hover:border-ink/40'
-                    }`}
-                  >
-                    <span className="text-[10px] font-medium uppercase">
-                      {date.toLocaleDateString('en-US', { weekday: 'short' })}
-                    </span>
-                    <span className="text-lg font-semibold">{date.getDate()}</span>
-                  </button>
-                ))}
-              </div>
+            <div className="mt-8 rounded-xl border border-ink/10 bg-white px-8 py-6 text-center shadow-sm">
+              <p className="text-sm font-medium uppercase tracking-wide text-ink/60">
+                To Reach by Call or Text
+              </p>
+              <a
+                href="tel:+19297048467"
+                className="mt-2 block font-serif text-2xl font-medium text-ink transition hover:text-ink/70"
+              >
+                (929) 704-8467
+              </a>
             </div>
-
-            {formData.selectedDate && (
-              <div className="animate-fadeIn">
-                <p className="mb-3 text-sm text-ink/70">
-                  Available times for {formatDate(formData.selectedDate)}:
-                </p>
-                <div className="grid grid-cols-4 gap-2">
-                  {TIME_SLOTS.map((time) => (
-                    <button
-                      key={time}
-                      type="button"
-                      onClick={() => handleTimeSelect(time)}
-                      className={`rounded-md border px-3 py-2 text-sm transition ${
-                        formData.selectedTime === time
-                          ? 'border-ink bg-ink text-white'
-                          : 'border-ink/20 bg-white hover:border-ink/40'
-                      }`}
-                    >
-                      {time}
-                    </button>
-                  ))}
-                </div>
-              </div>
-            )}
-
-            {formData.selectedDate && formData.selectedTime && (
-              <div className="mt-6 rounded-lg bg-ink/5 p-4">
-                <p className="text-sm font-medium text-ink">Your selected appointment:</p>
-                <p className="mt-1 text-ink/70">
-                  {formatDateForEmail(formData.selectedDate)} at {formData.selectedTime}
-                </p>
-              </div>
-            )}
           </div>
 
           <form ref={formRef} className="flex flex-col gap-5" onSubmit={(e) => e.preventDefault()}>
-            <h3 className="font-serif text-xl font-medium text-ink">Your Information</h3>
+            <h3 className="font-serif text-xl font-medium text-ink">Send a Message</h3>
             
             <div>
               <label htmlFor="name" className="mb-1.5 block text-sm font-medium text-ink">
@@ -296,7 +217,7 @@ ${formData.message}
                 className="flex flex-1 items-center justify-center gap-2 rounded-md bg-ink px-6 py-4 text-sm font-medium text-white transition hover:bg-ink/80"
               >
                 <EmailIcon />
-                Book via Email
+                Send via Email
               </button>
               <button
                 type="button"
@@ -304,28 +225,14 @@ ${formData.message}
                 className="flex flex-1 items-center justify-center gap-2 rounded-md bg-[#25D366] px-6 py-4 text-sm font-medium text-white transition hover:bg-[#22c55e]"
               >
                 <WhatsAppIcon />
-                Book via WhatsApp
+                Send via WhatsApp
               </button>
             </div>
 
             <p className="text-center text-xs text-ink/50">
-              Choose your preferred method. We typically respond within 24-48 hours.
+              Choose your preferred method. We typically respond within 24 hours.
             </p>
           </form>
-        </div>
-
-        <div className="mt-12 flex justify-center lg:mt-16">
-          <div className="rounded-xl border border-ink/10 bg-white px-8 py-6 text-center shadow-sm">
-            <p className="text-sm font-medium uppercase tracking-wide text-ink/60">
-              To Reach by Call or Text
-            </p>
-            <a
-              href="tel:+19297048467"
-              className="mt-2 block font-serif text-2xl font-medium text-ink transition hover:text-ink/70"
-            >
-              (929) 704-8467
-            </a>
-          </div>
         </div>
       </div>
     </section>
