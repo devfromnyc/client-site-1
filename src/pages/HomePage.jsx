@@ -21,11 +21,14 @@ export default function HomePage() {
         />
         <ProgressSection />
         <StickyCardsSection />
-        <ImageTextSection
-          id="programs"
-          imagePosition="right"
-          {...content.programs}
-        />
+        {/* Hidden for now - keeping code for potential future use */}
+        <div className="hidden">
+          <ImageTextSection
+            id="programs"
+            imagePosition="right"
+            {...content.programs}
+          />
+        </div>
       </main>
       <Footer />
     </>

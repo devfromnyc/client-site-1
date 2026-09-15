@@ -1,7 +1,10 @@
+import { Link } from 'react-router-dom'
 import content from '../data/site-content.json'
 
 export default function StickyCardsSection() {
   const { headlineLines, body, cta, whatsIncludedLabel, cards } = content.training
+
+  const isInternalLink = cta.href.startsWith('/')
 
   return (
     <section id="training" className="bg-beige">
@@ -18,12 +21,21 @@ export default function StickyCardsSection() {
             <p className="mt-6 max-w-md text-base leading-relaxed text-ink/70 md:text-lg">
               {body}
             </p>
-            <a
-              href={cta.href}
-              className="mt-10 inline-block rounded-xl bg-ink px-8 py-4 font-serif text-lg text-beige transition hover:bg-charcoal"
-            >
-              {cta.label}
-            </a>
+            {isInternalLink ? (
+              <Link
+                to={cta.href}
+                className="mt-10 inline-block rounded-xl bg-ink px-8 py-4 font-serif text-lg text-beige transition hover:bg-charcoal"
+              >
+                {cta.label}
+              </Link>
+            ) : (
+              <a
+                href={cta.href}
+                className="mt-10 inline-block rounded-xl bg-ink px-8 py-4 font-serif text-lg text-beige transition hover:bg-charcoal"
+              >
+                {cta.label}
+              </a>
+            )}
           </div>
         </div>
 
