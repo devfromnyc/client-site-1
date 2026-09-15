@@ -8,7 +8,6 @@
     "nav": [
       { "label": "Home", "href": "#home" },
       { "label": "About", "href": "/about" },
-      { "label": "Consultations", "href": "#consultations" },
       { "label": "Book & Contact", "href": "/contact" }
     ]
   },
@@ -143,7 +142,6 @@
     "nav": [
       { "label": "Home", "href": "#home" },
       { "label": "About", "href": "/about" },
-      { "label": "Consultations", "href": "#consultations" },
       { "label": "Book & Contact", "href": "/contact" }
     ],
     "social": [
