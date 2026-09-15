@@ -6,7 +6,7 @@
     "logoBefore": "Breathwork",
     "logoAfter": "Guru",
     "nav": [
-      { "label": "Home", "href": "#home" },
+      { "label": "Home", "href": "/" },
       { "label": "About", "href": "/about" },
       { "label": "Book & Contact", "href": "/contact" }
     ]
@@ -140,7 +140,7 @@
     "brandName": "Breathwork Guru",
     "tagline": "Healing begins with the breath.",
     "nav": [
-      { "label": "Home", "href": "#home" },
+      { "label": "Home", "href": "/" },
       { "label": "About", "href": "/about" },
       { "label": "Book & Contact", "href": "/contact" }
     ],
