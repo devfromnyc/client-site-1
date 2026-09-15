@@ -7,8 +7,7 @@
     "logoAfter": "Guru",
     "nav": [
       { "label": "Home", "href": "#home" },
-      { "label": "About", "href": "#about" },
-      { "label": "Consultations", "href": "#consultations" },
+      { "label": "About", "href": "/about" },
       { "label": "Book & Contact", "href": "/contact" }
     ]
   },
@@ -31,6 +30,19 @@
   "about": {
     "headlineLines": ["The art and science", "of breathwork"],
     "body": "Breathwork is a conscious practice of regulating the breath to shift the nervous system, release stored tension, and access deeper states of healing. Rooted in ancient wisdom and validated by modern science, it offers a direct path to regulation, clarity, and transformation."
+  },
+  "aboutPage": {
+    "subtitle": "About",
+    "headline": "Guiding others toward light through breath and presence.",
+    "imageSrc": "/alex_profile_photo.jpg",
+    "imageAlt": "Alex - Breathwork facilitator and sobriety coach",
+    "paragraphs": [
+      "My journey into breathwork began through my own path of recovery and transformation. After years of struggling with addiction and disconnection, I discovered the profound healing power of conscious breathing — a practice that quite literally saved my life.",
+      "Today, I dedicate my work to helping others find the same clarity, regulation, and inner peace that breathwork brought me. I believe that within every person lies the capacity for deep healing, and that the breath is our most accessible tool for accessing it.",
+      "As a certified breathwork facilitator and sobriety coach, I combine evidence-based techniques with trauma-informed practices to create safe, supportive spaces for transformation. Whether you're seeking stress relief, emotional release, or a deeper connection to yourself, I'm here to guide you.",
+      "My approach is rooted in compassion, presence, and the understanding that healing is not linear. Every session is tailored to meet you exactly where you are on your journey."
+    ],
+    "quote": "The breath is the bridge between the body and the mind. When we learn to work with it consciously, we unlock our capacity for profound healing."
   },
   "benefits": {
     "imageSrc": "/stacked_rocks.jpg",
@@ -73,7 +85,7 @@
     "body": "Learn to guide others into deep healing states using the only clinically-validated breathwork method proven to reduce PTSD, anxiety & depression.",
     "cta": {
       "label": "Book your spot",
-      "href": "#contact"
+      "href": "/contact"
     },
     "whatsIncludedLabel": "What's included",
     "cards": [
@@ -129,8 +141,7 @@
     "tagline": "Healing begins with the breath.",
     "nav": [
       { "label": "Home", "href": "#home" },
-      { "label": "About", "href": "#about" },
-      { "label": "Consultations", "href": "#consultations" },
+      { "label": "About", "href": "/about" },
       { "label": "Book & Contact", "href": "/contact" }
     ],
     "social": [

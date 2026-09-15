@@ -313,6 +313,20 @@ ${formData.message}
             </p>
           </form>
         </div>
+
+        <div className="mt-12 flex justify-center lg:mt-16">
+          <div className="rounded-xl border border-ink/10 bg-white px-8 py-6 text-center shadow-sm">
+            <p className="text-sm font-medium uppercase tracking-wide text-ink/60">
+              To Reach by Call or Text
+            </p>
+            <a
+              href="tel:+19297048467"
+              className="mt-2 block font-serif text-2xl font-medium text-ink transition hover:text-ink/70"
+            >
+              (929) 704-8467
+            </a>
+          </div>
+        </div>
       </div>
     </section>
   )
