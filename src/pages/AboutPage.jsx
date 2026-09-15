@@ -4,7 +4,7 @@ import Footer from '../components/Footer'
 import content from '../data/site-content.json'
 
 export default function AboutPage() {
-  const { about } = content
+  const { aboutPage: about } = content
 
   useEffect(() => {
     window.scrollTo(0, 0)
